@@ -10,18 +10,19 @@
 #define MOTOR_B_PWM 6
 #define MOTOR_A_DIR 4
 #define MOTOR_B_DIR 7
-#define CORRECTING_CONSTANT 150
+#define CORRECTING_CONSTANT 350
 #define ERROR_RANGE .075f 
 #define DELTA_TIME 0.25
 #define WHEEL_RADIUS 5.5
 #define WIDTH  30
 //#define PI 3.1416
 #define MOTOR_MAX_SPEED PI
-#define TIMEOUT_COUNT 20.0/DELTA_TIME
-#define DISTANCE_RANGE 40
+#define TIMEOUT_COUNT 2.0/DELTA_TIME
+#define DISTANCE_RANGE 0.1
 #define FIRE_PORT_L 0
 #define FIRE_PORT_R 1
-
+#define TIMEOUT_ANGLE .2 //about 10 degrees
+#define EPSILON .002
 
 
 #endif
