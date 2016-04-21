@@ -7,20 +7,20 @@
 
 Motor* mleft;
 Motor* mright;
-//Location* location;
+Location* location;
 Navigator* navigator;
-//FireSensor* fireL;
-//FireSensor* fireR;
+FireSensor* fireL;
+FireSensor* fireR;
 //Sonic* s;
 
 void setup()
 {  
   Serial.begin(9600);
   Serial.println("setup");
- // location = new Location();
+  location = new Location();
   //
-  //fireL = new FireSensor(FIRE_PORT_L);
-  //fireR = new FireSensor(FIRE_PORT_R);
+  fireL = new FireSensor(FIRE_PORT_L);
+  fireR = new FireSensor(FIRE_PORT_R);
   
   //s = new Sonic(3,2);
   
@@ -31,8 +31,8 @@ void setup()
   navigator = new Navigator(NULL,NULL,NULL,mleft,mright);
   //navigator->gotoWaypoint(3825,1000);
   
-  navigator->rotateToAngle(0);
-  /*delay(2000);
+  /*navigator->rotateToAngle(0);
+  delay(2000);
   navigator->rotateToAngle(PI/2);
   delay(2000);
   navigator->rotateToAngle(PI);
@@ -50,5 +50,10 @@ void loop()
  // String s = String(location->getX(),3);
   //String s =  String((int)location->getX()); 
   //location->say(s);
+  if (fireR->isFireActive() || fireL->isFireActive())
+  {
+    location->say("Active Fire Detected");
+  }
   delay(500);
+  
 }
