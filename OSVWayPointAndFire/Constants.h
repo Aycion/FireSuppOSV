@@ -4,7 +4,7 @@
 #define TEAM_CONNECT_MESSAGE "Team It was Lit before We got there Connected!"
 #define TX_PIN 1
 #define RX_PIN 0
-#define MARKER_NUMBER 107
+#define MARKER_NUMBER 110
 #define FIRE_THRESHOLD 100
 #define MOTOR_A_PWM 5
 #define MOTOR_B_PWM 6
