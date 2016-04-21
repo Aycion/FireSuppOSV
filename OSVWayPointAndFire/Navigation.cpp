@@ -19,19 +19,23 @@ float getAngle(float x1, float y1, float x2, float y2)
   float dy = (y2 - y1);
   if(dx >=0 && dy >= 0)
   {
+    //q1
     return atan(dy/dx);
   }
   else if(dx <=0 && dy >= 0)
   {
-    return PI/2 + atan(dy/dx);
+    //q2
+    return PI/2 + atan(-dx/dy);
   }
   else if(dx >=0 && dy <= 0)
   {
+    //q4
     return atan(dy/dx);
   }
   else
   {
-    return -PI/2 - atan(dy/dx);
+    //q3
+    return PI/2 + atan(dx/dy);
   }
   return atan((y2-y1)/(x2-x1));
 }
