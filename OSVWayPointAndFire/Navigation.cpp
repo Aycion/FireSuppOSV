@@ -2,14 +2,15 @@
 #include "Navigation.h"
 #include "math.h"
 
-Navigator::Navigator(Sonic *sleft, Sonic *smiddle, Sonic *sright, Motor* left, Motor* right):
-location()
+Navigator::Navigator(Location* loc,Sonic *sleft, Sonic *smiddle, Sonic *sright, Motor* left, Motor* right)
+
 {
   _leftm = left;
   _rightm = right;
   _sleft = sleft;
   _smiddle = smiddle;
   _sright = sright;
+  location = loc;	
 }
 
 float getAngle(float x1, float y1, float x2, float y2)
@@ -42,16 +43,16 @@ float getDistance(float x1, float y1, float x2, float y2)
 
 void Navigator::gotoWaypoint(float x, float y)
 {
-  location.say("going to waypoint");
-  int lx = location.getX();
-  int ly = location.getY();
+  location->say("going to waypoint");
+  int lx = location->getX();
+  int ly = location->getY();
   float targetAngle = getAngle(x,y,lx,ly);
   while(getDistance(x,y,lx,ly) > DISTANCE_RANGE)
   {
-    location.say("Target Angle: ");
-    location.say(targetAngle);
-    location.say("\n");
-    if(abs(location.getAngle() - targetAngle) > ERROR_RANGE)
+    location->say("Target Angle: ");
+    location->say(targetAngle);
+    location->say("\n");
+    if(abs(location->getAngle() - targetAngle) > ERROR_RANGE)
     {
       this->rotateToAngle(targetAngle);
     }
@@ -70,7 +71,7 @@ float fabs(float f)
 void Navigator::rotateToAngle(float angle)
 {	
  
-  float ca = location.getAngle();	
+  float ca = location->getAngle();	
   float error = 0;
   error = ca - angle;
   
@@ -83,7 +84,7 @@ void Navigator::rotateToAngle(float angle)
   
   String msg1 = String("Rotating to angle ");
   //String msgf = String(msg1 + doubleToS(angle));
-  location.say(msg1);
+  location->say(msg1);
   float count = 0;
   int prevDir = 0;
   while(fabs(error) > ERROR_RANGE && count <= TIMEOUT_COUNT)
@@ -93,9 +94,9 @@ void Navigator::rotateToAngle(float angle)
     //	String ns1 = doubleToS(error);
     //	String ns2 = doubleToS(ERROR_RANGE);
     //	String msgf = String(msg1 + ns1 + msg2 + ns2 );
-    location.say("error: ");
-    location.say(error);
-    location.say("\n");
+    location->say("error: ");
+    location->say(error);
+    location->say("\n");
     float w = fabs(K*error);
     //converts angular velocity to liner velocity
     float lspeed = w*WIDTH/2;
@@ -123,7 +124,7 @@ void Navigator::rotateToAngle(float angle)
     // flips dir
     _rightm->setSpeed(mspeed,dir ^ 1);            
     prevDir = dir;
-    ca = location.getAngle();
+    ca = location->getAngle();
     error = ca - angle;
     if(fabs(error) > PI){
       error = -error;
@@ -133,22 +134,22 @@ void Navigator::rotateToAngle(float angle)
     // _leftm->setSpeed(0,0);
     // _rightm->setSpeed(0,0);
 
-    location.say("bout to loop again, error:");
-    location.say(error);
-    location.say("\n");
+    location->say("bout to loop again, error:");
+    location->say(error);
+    location->say("\n");
     count++;
   }
-  location.say("Done rotating to angle \n");
-  location.say("derror: ");
-  location.say(error);
-  location.say("\n");
+  location->say("Done rotating to angle \n");
+  location->say("derror: ");
+  location->say(error);
+  location->say("\n");
   //	msg1 = String("current error: ");
   //	String msg2 = String(" error range: ");
   //	String ns1 = doubleToS(error);
   //	String ns2 = doubleToS(ERROR_RANGE);
   //	String msgf = String(msg1 + ns1 + msg2 + ns2 );
-  //	location.say(msgf);
-  //	location.say(msgf);
+  //	location->say(msgf);
+  //	location->say(msgf);
   _leftm->setSpeed(0,0);
   _rightm->setSpeed(0,0);	
 }

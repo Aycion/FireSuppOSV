@@ -28,7 +28,7 @@ void setup()
   
   mright = new Motor(MOTOR_A_PWM,MOTOR_A_DIR);
   mleft = new Motor(MOTOR_B_PWM,MOTOR_B_DIR);
-  navigator = new Navigator(NULL,NULL,NULL,mleft,mright);
+  navigator = new Navigator(location,NULL,NULL,NULL,mleft,mright);
   //navigator->gotoWaypoint(3825,1000);
   
   /*navigator->rotateToAngle(0);

@@ -11,12 +11,12 @@
 class Navigator
 {
 	public:
-		Navigator(Sonic *sleft, Sonic *smiddle, Sonic *sright, Motor *leftm, Motor *rightm);
+		Navigator(Location* location, Sonic *sleft, Sonic *smiddle, Sonic *sright, Motor *leftm, Motor *rightm);
 		void navBoulders();
 		void gotoWaypoint(float x, float y);
 		void rotateToAngle(float angle);
 	private:		
-		Location location;
+		Location* location;
 		const float K = CORRECTING_CONSTANT;
 		const float T = DELTA_TIME;
 		Motor *_leftm,*_rightm;

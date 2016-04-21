@@ -15,7 +15,7 @@
 #define DELTA_TIME 0.25
 #define WHEEL_RADIUS 5.5
 #define WIDTH  30
-#define PI 3.1416
+//#define PI 3.1416
 #define MOTOR_MAX_SPEED PI
 #define TIMEOUT_COUNT 20.0/DELTA_TIME
 #define DISTANCE_RANGE 40
