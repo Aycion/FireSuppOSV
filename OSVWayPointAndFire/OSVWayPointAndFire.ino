@@ -29,7 +29,8 @@ void setup()
   mright = new Motor(MOTOR_A_PWM,MOTOR_A_DIR);
   mleft = new Motor(MOTOR_B_PWM,MOTOR_B_DIR);
   navigator = new Navigator(location,NULL,NULL,NULL,mleft,mright);
-  //navigator->gotoWaypoint(3825,1000);
+  
+  navigator->gotoWaypoint(2900,1700); //Location of first fire site = (2900,1700)
   
   /*navigator->rotateToAngle(0);
   delay(2000);
