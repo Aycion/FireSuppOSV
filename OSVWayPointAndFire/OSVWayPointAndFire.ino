@@ -29,8 +29,13 @@ void setup()
   mright = new Motor(MOTOR_A_PWM,MOTOR_A_DIR);
   mleft = new Motor(MOTOR_B_PWM,MOTOR_B_DIR);
   navigator = new Navigator(location,NULL,NULL,NULL,mleft,mright);
-  
-  navigator->gotoWaypoint(2.700,1.700); //Location of first fire site = (2.900,1.700)
+
+  /*
+   * The next two methods tell the OSV to navigate to a location roughly 30 centimeters in the negative x direction
+   * from fire site A, and then rotate to face the fire site.
+   */
+  navigator->gotoWaypoint(2.600,1.700); //Location of first fire site = (2.900,1.700).
+  navigator->rotateToAngle(0); //OSV should be directly to the left of the fire site, so rotates to face the positive x direction.
   
   /*navigator->rotateToAngle(0);
   delay(2000);

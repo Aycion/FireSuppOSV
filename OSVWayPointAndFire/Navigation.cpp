@@ -55,9 +55,20 @@ float getDistance(float x1, float y1, float x2, float y2)
 
 void Navigator::gotoWaypoint(float x, float y)
 {
-  //x /= 1000;
-  //y /= 1000;
-  location->say("going to waypoint");
+  /*
+   * x /= 1000;
+   * y /= 1000;
+  */
+
+
+  /* NEXT FEW LINES NEED VERIFICATION */
+  location->say("Going to waypoint at (");
+  location->say(x);
+  location->say(", ");
+  location->say(y);
+  location->say(")\n");
+
+  
   float lx = location->getX();
   float ly = location->getY();
   float targetAngle = getAngle(lx, ly, x, y);
