@@ -4,6 +4,7 @@
 #include "Location.h"
 #include "Navigation.h"
 #include "FireSensor.h"
+#include "Fan.h"
 
 Motor* mleft;
 Motor* mright;
@@ -11,6 +12,7 @@ Location* location;
 Navigator* navigator;
 FireSensor* fireL;
 FireSensor* fireR;
+Fan* fan;
 //Sonic* s;
 
 void setup()
@@ -21,7 +23,7 @@ void setup()
   //
   fireL = new FireSensor(FIRE_PORT_L);
   fireR = new FireSensor(FIRE_PORT_R);
-  
+  fan = new Fan(FAN_PORT);
   //s = new Sonic(3,2);
   
   //drive to the oppisite wall  
@@ -59,6 +61,8 @@ void loop()
   if (fireR->isFireActive() || fireL->isFireActive())
   {
     location->say("Active Fire Detected");
+    delay(2000);
+    fan->cycleFan();
   }
   delay(500);
   
