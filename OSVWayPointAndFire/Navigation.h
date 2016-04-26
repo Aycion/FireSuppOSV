@@ -15,6 +15,7 @@ class Navigator
 		void navBoulders();
 		void gotoWaypoint(float x, float y);
 		void rotateToAngle(float angle);
+    void backUp(int timeToMove);
 	private:		
 		Location* location;
 		const float K = CORRECTING_CONSTANT;

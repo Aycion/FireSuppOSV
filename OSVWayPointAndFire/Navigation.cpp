@@ -186,4 +186,13 @@ void Navigator::rotateToAngle(float angle)
   _rightm->setSpeed(0, 0);
 }
 
+void Navigator::backUp(int timeToMove)
+{
+  _leftm->setSpeed(255, 1);
+  _rightm->setSpeed(255, 1);
+  delay(timeToMove);
+  _leftm->setSpeed(0, 0);
+  _rightm->setSpeed(0, 0);
+}
+
 
