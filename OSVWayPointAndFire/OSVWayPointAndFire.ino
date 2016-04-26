@@ -49,8 +49,8 @@ void setup()
 
   //Fire Site 2
   navigator->backUp(500);
-  navigator->gotoWaypoint(2.550, 900);
-  navigator->gotoWaypoint(3.350, 900);
+  navigator->gotoWaypoint(2.550, 0.900);
+  navigator->gotoWaypoint(3.350, 0.900);
   navigator->rotateToAngle(0);
   searchForFire();
 

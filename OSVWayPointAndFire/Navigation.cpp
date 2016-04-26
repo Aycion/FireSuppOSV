@@ -123,9 +123,9 @@ void Navigator::rotateToAngle(float angle)
     //	String ns1 = doubleToS(error);
     //	String ns2 = doubleToS(ERROR_RANGE);
     //	String msgf = String(msg1 + ns1 + msg2 + ns2 );
-    location->say("error: ");
+   /* location->say("error: ");
     location->say(error);
-    location->say("\n");
+    location->say("\n");*/
     float w = fabs(K * error);
     //converts angular velocity to liner velocity
     float lspeed = w * WIDTH / 2;
@@ -163,9 +163,9 @@ void Navigator::rotateToAngle(float angle)
     // _leftm->setSpeed(0,0);
     // _rightm->setSpeed(0,0);
 
-    location->say("bout to loop again, error:");
+    /*location->say("bout to loop again, error:");
     location->say(error);
-    location->say("\n");
+    location->say("\n");*/
     if (fabs(error) < TIMEOUT_ANGLE)
     {
       count = count + 1;
