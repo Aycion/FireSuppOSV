@@ -131,7 +131,7 @@ void Navigator::rotateToAngle(float angle)
     float lspeed = w * WIDTH / 2;
     //convert linear speed to wheel w
     float wheelW = lspeed / WHEEL_RADIUS;
-    //convert wheel speed to a pwm value
+    
     float mspeed = wheelW;
     if (mspeed > 255) {
       mspeed = 255;
@@ -184,6 +184,11 @@ void Navigator::rotateToAngle(float angle)
   //	location->say(msgf);
   _leftm->setSpeed(0, 0);
   _rightm->setSpeed(0, 0);
+}
+
+void Navigator::navBoulders()
+{
+
 }
 
 
