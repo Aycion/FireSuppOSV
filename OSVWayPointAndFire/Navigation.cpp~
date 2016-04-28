@@ -123,15 +123,15 @@ void Navigator::rotateToAngle(float angle)
     //	String ns1 = doubleToS(error);
     //	String ns2 = doubleToS(ERROR_RANGE);
     //	String msgf = String(msg1 + ns1 + msg2 + ns2 );
-    location->say("error: ");
+   /* location->say("error: ");
     location->say(error);
-    location->say("\n");
+    location->say("\n");*/
     float w = fabs(K * error);
     //converts angular velocity to liner velocity
     float lspeed = w * WIDTH / 2;
     //convert linear speed to wheel w
     float wheelW = lspeed / WHEEL_RADIUS;
-    //convert wheel speed to a pwm value
+    
     float mspeed = wheelW;
     if (mspeed > 255) {
       mspeed = 255;
@@ -163,9 +163,9 @@ void Navigator::rotateToAngle(float angle)
     // _leftm->setSpeed(0,0);
     // _rightm->setSpeed(0,0);
 
-    location->say("bout to loop again, error:");
+    /*location->say("bout to loop again, error:");
     location->say(error);
-    location->say("\n");
+    location->say("\n");*/
     if (fabs(error) < TIMEOUT_ANGLE)
     {
       count = count + 1;
@@ -186,9 +186,19 @@ void Navigator::rotateToAngle(float angle)
   _rightm->setSpeed(0, 0);
 }
 
+<<<<<<< HEAD
 void Navigator::navBoulders()
 {
 
+=======
+void Navigator::backUp(int timeToMove)
+{
+  _leftm->setSpeed(255, 1);
+  _rightm->setSpeed(255, 1);
+  delay(timeToMove);
+  _leftm->setSpeed(0, 0);
+  _rightm->setSpeed(0, 0);
+>>>>>>> 8c4cd36f2ef4fd30bf73e727c7c02c24a0d318f0
 }
 
 

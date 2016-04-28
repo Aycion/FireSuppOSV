@@ -1,26 +1,19 @@
 #include "FireSensor.h"
 
 FireSensor::FireSensor(int pin):
-	ANALOG_PORT(pin)
+  ANALOG_PORT(pin)
 {
-	//nothing
+  //nothing
 }
 
 bool FireSensor::isFireActive()
 {
-	int output = analogRead(ANALOG_PORT);
-	if (output > FIRE_THRESHOLD)
-	{
-		return true;
-	} 
-	else
-	{
-		return false;
-	}
+  int output = analogRead(ANALOG_PORT);
+  return (output > FIRE_THRESHOLD);
 }
 
 int FireSensor::getRawOutput()
 {
-	return analogRead(ANALOG_PORT);
-	
+  return analogRead(ANALOG_PORT);
+
 }
