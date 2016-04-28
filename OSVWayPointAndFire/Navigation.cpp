@@ -21,7 +21,7 @@ float getAngle(float x1, float y1, float x2, float y2)
   {
     return (dy > 0) ? (PI / 2) : (-PI / 2);
   }
-  else if (fabs(dx) < EPSILON)
+  else if (fabs(dy) < EPSILON)
   {
     return (dx > 0) ? 0 : PI;
   }
@@ -43,7 +43,7 @@ float getAngle(float x1, float y1, float x2, float y2)
   else
   {
     //q3
-    return PI / 2 + atan(dx / dy);
+    return -(PI / 2 + atan(dx / dy));
   }
 
 }
@@ -74,9 +74,13 @@ void Navigator::gotoWaypoint(float x, float y)
   float targetAngle = getAngle(lx, ly, x, y);
   while (getDistance(x, y, lx, ly) > DISTANCE_RANGE)
   {
-    location->say("Target Angle: ");
-    location->say(targetAngle);
-    location->say("\n");
+  //  location->say("Target Angle DEG: ");
+   // location->say(targetAngle*180/PI);
+   // location->say("\n");
+    //location->say("Current Location: ");
+    //location->say(lx);
+    //location->say(ly);
+    //location->say("\n");
 
     if (fabs(location->getAngle() - targetAngle) > ERROR_RANGE)
     {
@@ -108,12 +112,9 @@ void Navigator::rotateToAngle(float angle)
     error = -error;
   }
 
-
-
-
-  String msg1 = String("Rotating to angle ");
+  //String msg1 = String("Rotating to angle ");
   //String msgf = String(msg1 + doubleToS(angle));
-  location->say(msg1);
+  //location->say(msg1);
   float count = 0;
   int prevDir = 0;
   while (fabs(error) > ERROR_RANGE && count <= TIMEOUT_COUNT)
@@ -126,10 +127,14 @@ void Navigator::rotateToAngle(float angle)
    /* location->say("error: ");
     location->say(error);
     location->say("\n");*/
+    
     float w = fabs(K * error);
+    
     //converts angular velocity to liner velocity
     float lspeed = w * WIDTH / 2;
+    
     //convert linear speed to wheel w
+    
     float wheelW = lspeed / WHEEL_RADIUS;
     
     float mspeed = wheelW;
@@ -143,6 +148,7 @@ void Navigator::rotateToAngle(float angle)
     }
     //go max speed
     //float mspeed = 255;
+    
     if (dir != prevDir) {
       //stop the motors first if it is switching direction
       _leftm->setSpeed(0, 0);
@@ -171,10 +177,10 @@ void Navigator::rotateToAngle(float angle)
       count = count + 1;
     }
   }
-  location->say("Done rotating to angle \n");
-  location->say("derror: ");
-  location->say(error);
-  location->say("\n");
+  //location->say("Done rotating to angle \n");
+  //location->say("derror: ");
+  //location->say(error);
+  //location->say("\n");
   //	msg1 = String("current error: ");
   //	String msg2 = String(" error range: ");
   //	String ns1 = doubleToS(error);
@@ -186,11 +192,24 @@ void Navigator::rotateToAngle(float angle)
   _rightm->setSpeed(0, 0);
 }
 
-
+/*
 void Navigator::navBoulders()
 {
-
+  this->gotoWaypoint(0.900,1.000);
+  this->rotateToAngle(0);
+  while(_sright->getDistance() > 3 && _sleft->getDistance() > 3 && _smiddle->getDistance() > 5 && location->getX() < 1.700){
+    _leftm->setSpeed(255, 2);
+    _rightm->setSpeed(255, 2);
+  }
+  if(location->getX() < 1.700){
+    this->backUp(0.5);
+    this->gotoWaypoint(0.500,1.000);
+    this->gotoWaypoint(0.500,1.000);
+  }
+    
+  // some if statments and stuff
 }
+*/
 void Navigator::backUp(int timeToMove)
 {
   _leftm->setSpeed(255, 1);

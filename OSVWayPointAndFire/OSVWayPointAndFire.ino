@@ -12,6 +12,9 @@ Location* location;
 Navigator* navigator;
 FireSensor* fireL;
 FireSensor* fireR;
+Sonic* sonic1;
+Sonic* sonic2;
+Sonic* sonic3;
 Fan* fan;
 //Sonic* s;
 
@@ -30,7 +33,10 @@ void setup()
 
   mright = new Motor(MOTOR_A_PWM, MOTOR_A_DIR);
   mleft = new Motor(MOTOR_B_PWM, MOTOR_B_DIR);
-  navigator = new Navigator(location, NULL, NULL, NULL, mleft, mright);
+  sonic1 = new Sonic(SONIC_SENSOR_ECHO_L,SONIC_SENSOR_ECHO_L);
+  sonic2 = new Sonic(SONIC_SENSOR_ECHO_M,SONIC_SENSOR_ECHO_M);
+  sonic3 = new Sonic(SONIC_SENSOR_ECHO_R,SONIC_SENSOR_ECHO_R);
+  navigator = new Navigator(location, sonic1, sonic2, sonic3, mleft, mright);
 
   /*
      The next two methods tell the OSV to navigate to a location roughly 30 centimeters in the negative x direction
@@ -39,11 +45,15 @@ void setup()
 
   
   //Fire Site 1
+  
   navigator->gotoWaypoint(0.500, 1.000);
   //navigator->gotoWaypoint(1.200, 1.000);
   navigator->gotoWaypoint(1.700, 1.000);
-  navigator->gotoWaypoint(1.700, 1.700);
-  navigator->gotoWaypoint(2.550, 1.700); //Location of first fire site = (2.900,1.700).
+  
+  
+  navigator->gotoWaypoint(1.700, 1.650);
+  navigator->gotoWaypoint(2.550, 1.650); //Location of first fire site = (2.900,1.700).
+  
   navigator->rotateToAngle(0); //OSV should be directly to the left of the fire site, so rotates to face the positive x direction.
   searchForFire();
 
@@ -76,7 +86,16 @@ void loop()
 }
 
 void searchForFire()
-{
+{  
+  location->say("Checking Fire Site \n");
+  if(fireR->isFireActive() || fireL->isFireActive()){
+    location->say("Fire is active");
+    while(fireR->isFireActive() || fireL->isFireActive()){
+      fan->cycleFan();
+    }
+    location->say("Fire Extinguished");
+  }
+  /*
   bool fireActive = (fireR->isFireActive() || fireL->isFireActive());
  do{
   fireActive = (fireR->isFireActive() || fireL->isFireActive());
@@ -97,5 +116,6 @@ void searchForFire()
  } while(fireActive);
  
   delay(500);
+  */
 }
 
