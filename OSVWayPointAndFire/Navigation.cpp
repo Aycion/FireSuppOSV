@@ -199,26 +199,41 @@ void Navigator::rotateToAngle(float angle)
 
 void Navigator::navBoulders()
 {
-  this->gotoWaypoint(0.500, 1.700);
-  this->rotateToAngle(0);
-  location->say("Middle dist: ");
-  location->say(_smiddle->getDistance());
-  location->say(" cm\n");
+ // this->gotoWaypoint(0.500, 1.700);
+ // this->rotateToAngle(0);
+//  location->say("Middle dist: ");
+//  location->say(_smiddle->getDistance());
+//  location->say(" cm\n");
   
-  while (_sright->getDistance() > 4 && _sleft->getDistance() > 4 && _smiddle->getDistance() > 6 && location->getX() < 1.900) {
+/*  while (_sright->getDistance() > 4 && _sleft->getDistance() > 4 && _smiddle->getDistance() > 6 && location->getX() < 1.900) {
     location->say(_smiddle->getDistance());
     location->say(" cm\n");
     _leftm->setSpeed(255, 0);
     _rightm->setSpeed(255, 0);
   }
-  _leftm->setSpeed(0, 0);
-  _rightm->setSpeed(0, 0);
-  if (location->getX() < 1.700) {
-    this->backUp(0.5);
-    this->gotoWaypoint(0.500, 1.000);
-    this->gotoWaypoint(1.800, 1.000);
-    this->gotoWaypoint(1.800, 1.750);
+  */
+  float y = 1.000;
+  boolean first = true;
+  while(location->getX() < 1.200){
+    if(!first){
+      backUp(2000);      
+    }else{
+      first = false;
+      this->gotoWaypoint(1.000, y);
+    }
+//  if (location->getX() < 1.700) {
+  //  this->backUp(0.5);
+    this->gotoWaypoint(location->getX(), y);
+    rotateToAngle(0);
+    _leftm->setSpeed(255, 0);
+    _rightm->setSpeed(255, 0);
+    
+    delay(5000);    
+    y+= .10;
+    //this->gotoWaypoint(1.800, 1.000);
+    //this->gotoWaypoint(1.800, 1.750);
   }
+//  }
 
   // some if statments and stuff
 }

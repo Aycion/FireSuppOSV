@@ -37,7 +37,7 @@ void setup()
   sonic2 = new Sonic(SONIC_SENSOR_ECHO_M, SONIC_SENSOR_ECHO_M);
   sonic3 = new Sonic(SONIC_SENSOR_ECHO_R, SONIC_SENSOR_ECHO_R);
   navigator = new Navigator(location, sonic1, sonic2, sonic3, mleft, mright);
-  
+
   /*
      The next two methods tell the OSV to navigate to a location roughly 30 centimeters in the negative x direction
      from fire site A, and then rotate to face the fire site.
@@ -50,11 +50,11 @@ void setup()
   //navigator->gotoWaypoint(0.500, 1.000);
   //navigator->gotoWaypoint(1.200, 1.000);
   //navigator->gotoWaypoint(1.700, 1.000);
-
+  navigator->gotoWaypoint(1.700, 1.700);
   //Fire Site 1
 
   //navigator->gotoWaypoint(1.700, 1.650);
-  navigator->gotoWaypoint(2.550, 1.650); //Location of first fire site = (2.900,1.700).
+  navigator->gotoWaypoint(2.600, 1.700); //Location of first fire site = (2.900,1.700).
 
   navigator->rotateToAngle(Navigator::getAngle(location->getX(), location->getY(), 2.900, 1.700)); //OSV should be directly to the left of the fire site, so rotates to face the positive x direction.
   searchForFire();
@@ -62,7 +62,7 @@ void setup()
   //Fire Site 2
   navigator->backUp(500);
   navigator->gotoWaypoint(2.550, 0.900);
-  navigator->gotoWaypoint(3.350, 0.900);
+  navigator->gotoWaypoint(3.360, 1.000); // was 3.350 0.900
   navigator->rotateToAngle(Navigator::getAngle(location->getX(), location->getY(), 3.700, 0.900));
   searchForFire();
 
@@ -88,24 +88,31 @@ void loop()
 }
 
 void searchForFire()
-{
-  /* location->say("Checking Fire Site \n");
-    if(fireR->isFireActive() || fireL->isFireActive()){
-    location->say("Fire is active");
-    while(fireR->isFireActive() || fireL->isFireActive()){
-      fan->cycleFan();
+{  
+  location->say("Checking Fire Site \n");
+  delay(1000);
+  for (int i = 0; i < 40; i++) {
+    if (fireR->isFireActive() || fireL->isFireActive()) {
+      
+      location->say("Fire is active");
+      while (fireR->isFireActive() || fireL->isFireActive()) {
+        fan->cycleFan();
+      }
+      location->say("Fire Extinguished");
+      break;
     }
-    location->say("Fire Extinguished");
-    }
-  */
-  bool fireActive;
-  do {
+    delay(100);
+  }
+
+  /*
+    bool fireActive;
+    do {
     location->say("Looking for active flame...\n");
     delay(2000);
     fireActive = (fireR->isFireActive() || fireL->isFireActive());
     delay(2000);
     fireActive = (fireR->isFireActive() || fireL->isFireActive());
-    
+
     if (fireActive)
     {
       location->say("Active Fire Detected");
@@ -122,8 +129,8 @@ void searchForFire()
     {
       location->say("No active fire detected\n");
     }
-  } while (fireActive);
-
+    } while (fireActive);
+  */
   delay(500);
 }
 
