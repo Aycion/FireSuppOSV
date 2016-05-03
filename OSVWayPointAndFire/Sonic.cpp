@@ -19,5 +19,13 @@ long Sonic::getDistance()
 	digitalWrite(TRIG_PIN, LOW);
 	duration = pulseIn(ECHO_PIN, HIGH);
 	distance = (duration/2) / 29.1;
+ //NEEDS TO BE FIXED
+ if (distance > 400)
+ {
+  distance = 1000;
+ } else if (distance < 2)
+ {
+  distance = 0;
+ }
 	return distance;
 }

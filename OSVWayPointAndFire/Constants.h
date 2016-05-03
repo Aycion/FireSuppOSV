@@ -8,8 +8,8 @@
 #define WHEEL_RADIUS 5.5
 #define WIDTH  30
 #define MOTOR_MAX_SPEED PI
-#define MARKER_NUMBER 104
-#define TEAM_CONNECT_MESSAGE "Team It was Lit before We got there Connected!"
+#define MARKER_NUMBER 110
+#define TEAM_CONNECT_MESSAGE "Team It was Lit before We got there Connected!\n"
 
 //Error Margins
 #define FIRE_THRESHOLD 100

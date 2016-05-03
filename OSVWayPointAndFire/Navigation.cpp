@@ -61,7 +61,6 @@ void Navigator::gotoWaypoint(float x, float y)
   */
 
 
-  /* NEXT FEW LINES NEED VERIFICATION */
   location->say("Going to waypoint at (");
   location->say(x);
   location->say(", ");
@@ -202,6 +201,10 @@ void Navigator::navBoulders()
 {
   this->gotoWaypoint(0.500, 1.700);
   this->rotateToAngle(0);
+  location->say("Middle dist: ");
+  location->say(_smiddle->getDistance());
+  location->say(" cm\n");
+  
   while (_sright->getDistance() > 4 && _sleft->getDistance() > 4 && _smiddle->getDistance() > 6 && location->getX() < 1.900) {
     location->say(_smiddle->getDistance());
     location->say(" cm\n");
@@ -213,8 +216,8 @@ void Navigator::navBoulders()
   if (location->getX() < 1.700) {
     this->backUp(0.5);
     this->gotoWaypoint(0.500, 1.000);
-    this->gotoWaypoint(1.900, 1.000);
-    this->gotoWaypoint(2.000, 1.700);
+    this->gotoWaypoint(1.800, 1.000);
+    this->gotoWaypoint(1.800, 1.750);
   }
 
   // some if statments and stuff

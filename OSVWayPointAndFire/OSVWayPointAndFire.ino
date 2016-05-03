@@ -37,7 +37,7 @@ void setup()
   sonic2 = new Sonic(SONIC_SENSOR_ECHO_M, SONIC_SENSOR_ECHO_M);
   sonic3 = new Sonic(SONIC_SENSOR_ECHO_R, SONIC_SENSOR_ECHO_R);
   navigator = new Navigator(location, sonic1, sonic2, sonic3, mleft, mright);
-
+  
   /*
      The next two methods tell the OSV to navigate to a location roughly 30 centimeters in the negative x direction
      from fire site A, and then rotate to face the fire site.
@@ -100,7 +100,7 @@ void searchForFire()
   */
   bool fireActive;
   do {
-    location->say("Looking for active flame...");
+    location->say("Looking for active flame...\n");
     delay(2000);
     fireActive = (fireR->isFireActive() || fireL->isFireActive());
     delay(2000);
@@ -116,11 +116,11 @@ void searchForFire()
       fireActive = (fireR->isFireActive() || fireL->isFireActive());
       if (!fireActive)
       {
-        location->say("Fire Extinguished");
+        location->say("Fire Extinguished\n");
       }
     } else
     {
-      location->say("No active fire detected");
+      location->say("No active fire detected\n");
     }
   } while (fireActive);
 
