@@ -13,7 +13,7 @@ Navigator::Navigator(Location* loc, Sonic *sleft, Sonic *smiddle, Sonic *sright,
   location = loc;
 }
 
-float getAngle(float x1, float y1, float x2, float y2)
+float Navigator::getAngle(float x1, float y1, float x2, float y2)
 {
   float dx = (x2 - x1);
   float dy = (y2 - y1);
@@ -56,8 +56,8 @@ float getDistance(float x1, float y1, float x2, float y2)
 void Navigator::gotoWaypoint(float x, float y)
 {
   /*
-   * x /= 1000;
-   * y /= 1000;
+     x /= 1000;
+     y /= 1000;
   */
 
 
@@ -68,26 +68,30 @@ void Navigator::gotoWaypoint(float x, float y)
   location->say(y);
   location->say(")\n");
 
-  
+
   float lx = location->getX();
   float ly = location->getY();
   float targetAngle = getAngle(lx, ly, x, y);
   while (getDistance(x, y, lx, ly) > DISTANCE_RANGE)
   {
-  //  location->say("Target Angle DEG: ");
-   // location->say(targetAngle*180/PI);
-   // location->say("\n");
+    //  location->say("Target Angle DEG: ");
+    // location->say(targetAngle*180/PI);
+    // location->say("\n");
     //location->say("Current Location: ");
     //location->say(lx);
     //location->say(ly);
     //location->say("\n");
 
-    if (fabs(location->getAngle() - targetAngle) > ERROR_RANGE)
+    if (fabs(location->getAngle() - targetAngle) > ANGLE_RANGE)
     {
       this->rotateToAngle(targetAngle);
     }
-    _leftm->setSpeed(255, 0);
-    _rightm->setSpeed(255, 0);
+    int speed = 255;
+    if (getDistance(x, y, lx, ly) < WAYPOINT_SLOWDOWN_RANGE) {
+      speed *= (3.0 / 4.0);
+    }
+    _leftm->setSpeed(speed, 0);
+    _rightm->setSpeed(speed, 0);
     lx = location->getX();
     ly = location->getY();
     targetAngle = getAngle(lx, ly, x, y);
@@ -96,6 +100,7 @@ void Navigator::gotoWaypoint(float x, float y)
   _rightm->setSpeed(0, 0);
 
 }
+
 float fabs(float f)
 {
   return (f < 0) ? (-f) : f;
@@ -117,26 +122,26 @@ void Navigator::rotateToAngle(float angle)
   //location->say(msg1);
   float count = 0;
   int prevDir = 0;
-  while (fabs(error) > ERROR_RANGE && count <= TIMEOUT_COUNT)
+  while (fabs(error) > ANGLE_RANGE && count <= TIMEOUT_COUNT)
   {
     //	msg1 = String("current error: ");
     //	String msg2 = String(" error range: ");
     //	String ns1 = doubleToS(error);
-    //	String ns2 = doubleToS(ERROR_RANGE);
+    //	String ns2 = doubleToS(ANGLE_RANGE);
     //	String msgf = String(msg1 + ns1 + msg2 + ns2 );
-   /* location->say("error: ");
-    location->say(error);
-    location->say("\n");*/
-    
+    /* location->say("error: ");
+      location->say(error);
+      location->say("\n");*/
+
     float w = fabs(K * error);
-    
+
     //converts angular velocity to liner velocity
     float lspeed = w * WIDTH / 2;
-    
+
     //convert linear speed to wheel w
-    
+
     float wheelW = lspeed / WHEEL_RADIUS;
-    
+
     float mspeed = wheelW;
     if (mspeed > 255) {
       mspeed = 255;
@@ -148,7 +153,7 @@ void Navigator::rotateToAngle(float angle)
     }
     //go max speed
     //float mspeed = 255;
-    
+
     if (dir != prevDir) {
       //stop the motors first if it is switching direction
       _leftm->setSpeed(0, 0);
@@ -170,8 +175,8 @@ void Navigator::rotateToAngle(float angle)
     // _rightm->setSpeed(0,0);
 
     /*location->say("bout to loop again, error:");
-    location->say(error);
-    location->say("\n");*/
+      location->say(error);
+      location->say("\n");*/
     if (fabs(error) < TIMEOUT_ANGLE)
     {
       count = count + 1;
@@ -184,7 +189,7 @@ void Navigator::rotateToAngle(float angle)
   //	msg1 = String("current error: ");
   //	String msg2 = String(" error range: ");
   //	String ns1 = doubleToS(error);
-  //	String ns2 = doubleToS(ERROR_RANGE);
+  //	String ns2 = doubleToS(ANGLE_RANGE);
   //	String msgf = String(msg1 + ns1 + msg2 + ns2 );
   //	location->say(msgf);
   //	location->say(msgf);
@@ -192,24 +197,29 @@ void Navigator::rotateToAngle(float angle)
   _rightm->setSpeed(0, 0);
 }
 
-/*
+
 void Navigator::navBoulders()
 {
-  this->gotoWaypoint(0.900,1.000);
+  this->gotoWaypoint(0.500, 1.700);
   this->rotateToAngle(0);
-  while(_sright->getDistance() > 3 && _sleft->getDistance() > 3 && _smiddle->getDistance() > 5 && location->getX() < 1.700){
-    _leftm->setSpeed(255, 2);
-    _rightm->setSpeed(255, 2);
+  while (_sright->getDistance() > 4 && _sleft->getDistance() > 4 && _smiddle->getDistance() > 6 && location->getX() < 1.900) {
+    location->say(_smiddle->getDistance());
+    location->say(" cm\n");
+    _leftm->setSpeed(255, 0);
+    _rightm->setSpeed(255, 0);
   }
-  if(location->getX() < 1.700){
+  _leftm->setSpeed(0, 0);
+  _rightm->setSpeed(0, 0);
+  if (location->getX() < 1.700) {
     this->backUp(0.5);
-    this->gotoWaypoint(0.500,1.000);
-    this->gotoWaypoint(0.500,1.000);
+    this->gotoWaypoint(0.500, 1.000);
+    this->gotoWaypoint(1.900, 1.000);
+    this->gotoWaypoint(2.000, 1.700);
   }
-    
+
   // some if statments and stuff
 }
-*/
+
 void Navigator::backUp(int timeToMove)
 {
   _leftm->setSpeed(255, 1);

@@ -8,16 +8,17 @@
 #define WHEEL_RADIUS 5.5
 #define WIDTH  30
 #define MOTOR_MAX_SPEED PI
-#define MARKER_NUMBER 115
+#define MARKER_NUMBER 104
 #define TEAM_CONNECT_MESSAGE "Team It was Lit before We got there Connected!"
 
 //Error Margins
 #define FIRE_THRESHOLD 100
 #define EPSILON .002
 #define DISTANCE_RANGE 0.1
-#define ERROR_RANGE .075f 
+#define ANGLE_RANGE .100f //changed from .075 
 #define TIMEOUT_COUNT 2.0/DELTA_TIME
 #define TIMEOUT_ANGLE .2 //about 10 degrees
+#define WAYPOINT_SLOWDOWN_RANGE 0.2
 
 //Digital Port Definitions
 #define TX_PIN 1

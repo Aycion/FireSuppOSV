@@ -16,6 +16,7 @@ class Navigator
 		void gotoWaypoint(float x, float y);
 		void rotateToAngle(float angle);
     void backUp(int timeToMove);
+    static float getAngle(float x1, float y1, float x2, float y2);
 	private:		
 		Location* location;
 		const float K = CORRECTING_CONSTANT;
