@@ -44,17 +44,17 @@ void setup()
   */
 
   //Get Past Boulders
-  location->say("Navigating boulders\n");
+  //location->say("Navigating boulders\n");
   navigator->navBoulders();
-  location->say("Done navigating boulders\n");
+  //location->say("Done navigating boulders\n");
   //navigator->gotoWaypoint(0.500, 1.000);
   //navigator->gotoWaypoint(1.200, 1.000);
   //navigator->gotoWaypoint(1.700, 1.000);
   navigator->gotoWaypoint(1.700, 1.700);
+  
   //Fire Site 1
-
   //navigator->gotoWaypoint(1.700, 1.650);
-  navigator->gotoWaypoint(2.600, 1.700); //Location of first fire site = (2.900,1.700).
+  navigator->gotoWaypoint(2.700, 1.700); //Location of first fire site = (2.900,1.700).
 
   navigator->rotateToAngle(Navigator::getAngle(location->getX(), location->getY(), 2.900, 1.700)); //OSV should be directly to the left of the fire site, so rotates to face the positive x direction.
   searchForFire();
@@ -62,7 +62,7 @@ void setup()
   //Fire Site 2
   navigator->backUp(500);
   navigator->gotoWaypoint(2.550, 0.900);
-  navigator->gotoWaypoint(3.360, 1.000); // was 3.350 0.900
+  navigator->gotoWaypoint(3.500, 0.900); // was 3.350 0.900  (x is 3.700)
   navigator->rotateToAngle(Navigator::getAngle(location->getX(), location->getY(), 3.700, 0.900));
   searchForFire();
 
@@ -86,24 +86,33 @@ void loop()
   //String s =  String((int)location->getX());
 
 }
-
+int site = 1;
 void searchForFire()
 {  
   location->say("Checking Fire Site \n");
+  boolean found = false;
   delay(1000);
   for (int i = 0; i < 40; i++) {
     if (fireR->isFireActive() || fireL->isFireActive()) {
       
-      location->say("Fire is active");
+      location->say("Fire is active at site ");
+      location->say(site);
+      location->say(" \n");
       while (fireR->isFireActive() || fireL->isFireActive()) {
         fan->cycleFan();
       }
-      location->say("Fire Extinguished");
+      location->say("Fire Extinguished at site");
+      location->say(site);
+      location->say("\n");
+      found = true;
       break;
     }
     delay(100);
   }
-
+  if(!found){
+    location->say("No active fire \n");
+  }
+  site++;
   /*
     bool fireActive;
     do {

@@ -199,41 +199,48 @@ void Navigator::rotateToAngle(float angle)
 
 void Navigator::navBoulders()
 {
- // this->gotoWaypoint(0.500, 1.700);
- // this->rotateToAngle(0);
-//  location->say("Middle dist: ");
-//  location->say(_smiddle->getDistance());
-//  location->say(" cm\n");
-  
-/*  while (_sright->getDistance() > 4 && _sleft->getDistance() > 4 && _smiddle->getDistance() > 6 && location->getX() < 1.900) {
-    location->say(_smiddle->getDistance());
-    location->say(" cm\n");
-    _leftm->setSpeed(255, 0);
-    _rightm->setSpeed(255, 0);
-  }
+  // this->gotoWaypoint(0.500, 1.700);
+  // this->rotateToAngle(0);
+  //  location->say("Middle dist: ");
+  //  location->say(_smiddle->getDistance());
+  //  location->say(" cm\n");
+
+  /*  while (_sright->getDistance() > 4 && _sleft->getDistance() > 4 && _smiddle->getDistance() > 6 && location->getX() < 1.900) {
+      location->say(_smiddle->getDistance());
+      location->say(" cm\n");
+      _leftm->setSpeed(255, 0);
+      _rightm->setSpeed(255, 0);
+    }
   */
   float y = 1.000;
   boolean first = true;
-  while(location->getX() < 1.200){
-    if(!first){
-      backUp(2000);      
-    }else{
+  while (location->getX() < 1.300) {
+    if (first) {
       first = false;
-      this->gotoWaypoint(1.000, y);
+      this->gotoWaypoint(0.500, y);
+    }else{
+      this->gotoWaypoint(location->getX(), y);
     }
-//  if (location->getX() < 1.700) {
-  //  this->backUp(0.5);
-    this->gotoWaypoint(location->getX(), y);
+    //  if (location->getX() < 1.700) {
+    //  this->backUp(0.5);
+    
     rotateToAngle(0);
+    float loc = location->getX();
     _leftm->setSpeed(255, 0);
     _rightm->setSpeed(255, 0);
-    
-    delay(5000);    
-    y+= .10;
+    delay(2500);
+    if (fabs(location->getX() - loc) < 0.070) {
+     // location->say("stopped");
+      y += 0.700;
+      if(y > 1.700){
+        y = 1.700;
+      }
+      backUp(3000);
+    }
     //this->gotoWaypoint(1.800, 1.000);
     //this->gotoWaypoint(1.800, 1.750);
   }
-//  }
+  //  }
 
   // some if statments and stuff
 }
