@@ -212,27 +212,27 @@ void Navigator::navBoulders()
       _rightm->setSpeed(255, 0);
     }
   */
-  float y = 1.000;
+  float y = 1.100;
   boolean first = true;
   while (location->getX() < 1.300) {
     if (first) {
       first = false;
       this->gotoWaypoint(0.500, y);
-    }else{
+    } else {
       this->gotoWaypoint(location->getX(), y);
     }
     //  if (location->getX() < 1.700) {
     //  this->backUp(0.5);
-    
+
     rotateToAngle(0);
     float loc = location->getX();
     _leftm->setSpeed(255, 0);
     _rightm->setSpeed(255, 0);
-    delay(2500);
+    delay(3000);
     if (fabs(location->getX() - loc) < 0.070) {
-     // location->say("stopped");
+      // location->say("stopped");
       y += 0.700;
-      if(y > 1.700){
+      if (y > 1.700) {
         y = 1.700;
       }
       backUp(3000);
@@ -254,4 +254,40 @@ void Navigator::backUp(int timeToMove)
   _rightm->setSpeed(0, 0);
 }
 
+/*void Navigator::navBoulders2()
+{
+
+  float y = 1.000;
+  int attempt = 1;
+  while (location->getX() < 1.400) {
+    if (attempt = 1)
+    {
+      attempt = 2;
+      this->gotoWaypoint(0.500, y);
+    }
+    else if (attempt == 2 || attempt == 3)
+    {
+      attempt = 3;
+      this->gotoWaypoint(location->getX(), y);
+    }
+    //  if (location->getX() < 1.700) {
+    //  this->backUp(0.5);
+
+    rotateToAngle(0);
+    float loc = location->getX();
+    _leftm->setSpeed(255, 0);
+    _rightm->setSpeed(255, 0);
+    delay(2500);
+    if (fabs(location->getX() - loc) < 0.070) {
+      // location->say("stopped");
+      y = (attempt == 2)? 1.700 : 0.300;
+      backUp(3000);
+    }
+    //this->gotoWaypoint(1.800, 1.000);
+    //this->gotoWaypoint(1.800, 1.750);
+  }
+  //  }
+
+  // some if statments and stuff
+}*/
 

@@ -54,17 +54,19 @@ void setup()
   
   //Fire Site 1
   //navigator->gotoWaypoint(1.700, 1.650);
-  navigator->gotoWaypoint(2.700, 1.700); //Location of first fire site = (2.900,1.700).
+  navigator->gotoWaypoint(2.650, 1.700); //Location of first fire site = (2.900,1.700).
 
   navigator->rotateToAngle(Navigator::getAngle(location->getX(), location->getY(), 2.900, 1.700)); //OSV should be directly to the left of the fire site, so rotates to face the positive x direction.
   searchForFire();
 
   //Fire Site 2
-  navigator->backUp(500);
+  navigator->backUp(1000);
   navigator->gotoWaypoint(2.550, 0.900);
-  navigator->gotoWaypoint(3.500, 0.900); // was 3.350 0.900  (x is 3.700)
+  navigator->gotoWaypoint(3.450, 0.900); // was 3.350 0.900  (x is 3.700)
   navigator->rotateToAngle(Navigator::getAngle(location->getX(), location->getY(), 3.700, 0.900));
   searchForFire();
+
+  location->say("All fires extinguished");
 
   /*navigator->rotateToAngle(0);
     delay(2000);

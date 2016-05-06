@@ -13,6 +13,7 @@ class Navigator
 	public:
 		Navigator(Location* location, Sonic *sleft, Sonic *smiddle, Sonic *sright, Motor *leftm, Motor *rightm);
 		void navBoulders();
+   void navBoulders2();
 		void gotoWaypoint(float x, float y);
 		void rotateToAngle(float angle);
     void backUp(int timeToMove);
